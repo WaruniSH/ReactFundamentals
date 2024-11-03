@@ -4,10 +4,12 @@ import './App.css';
 import NameList from './Components/NameList/NameList';
 import Emails from './Components/NameList/Emails';
 import Phone from './Components/NameList/Phone';
+import HeaderBar from './Components/HeaderBar/HeaderBar';
 
 function App() {
   return (
     <div>
+     <HeaderBar/>
      <NameList/>
     
      <Emails email="warunisha1@gmail.com"/>
