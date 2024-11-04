@@ -1,8 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import NameListItem from './NameListItem';
 
 
+
 function NameList(){
+  const [loadData, setLoadData] = useState(new Date());
+  console.log("loadData",loadData)
     const [nameList, setNameList] = useState(
       [
         {
@@ -33,11 +36,19 @@ function NameList(){
   
     ]);
 
+    useEffect(() => {
+      fetch("https://randomuser.me/api")
+      .then((response) => {
+        return response.json();
+
+      })
+      .then((responseData) => {
+      setNameList((nameList) => [...nameList, responseData.results[0]]);
+      });
+    }, [loadData]);
     
-const nameListComponent = () =>{
-  return(
-    nameList.map(aName => {
-      console.log("aName .. ",aName)
+const nameListComponent = () => {
+  return nameList.map(aName => {
       return(
         <NameListItem 
         key={aName.id}
@@ -47,27 +58,13 @@ const nameListComponent = () =>{
         birthday={aName.dob.date}
         avatar={aName.picture.medium}
         />
-      )
-    })
-    
-  );
-};
+      );
+    });
+  };
 
   const addUserHandler = () => {
-    const newUser=
-     {
-      id : 4,
-      name: {"title":"Mrs","first":"Angel","last":"Van der Burgt"},
-      location: {city:"Sunshine Coast",},
-      email: "roy.dean@example.com",
-      dob: {date: "1969-10-21T10:46:15.807Z",age: 55,},
-     picture: { medium: "https://randomuser.me/api/portraits/med/men/41.jpg",
-     },
-    };
-
-    //setNameList(nameList => nameList.concat(newUser));
-
-    setNameList((nameList) => [...nameList, newUser]);
+    setLoadData(new Date());
+    console.log("executing add user");
  };
   
 

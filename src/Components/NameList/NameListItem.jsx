@@ -4,7 +4,6 @@ import moment from 'moment';
 import './NameListItem.css';
 
 function NameListItem(props){
-    console.log(props)
     return(
         <li className='list-group-item shadow-sm'>
             <div className='row align-items-center'>
